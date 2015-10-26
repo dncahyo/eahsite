@@ -1,0 +1,25 @@
+<div class="row">
+<div class="col-sm-10">
+    <!-- FORM ============ -->
+    <news-show control="newsShow" config="newsShowConfig"></news-show>
+    <news-update control="newsUpdate"></news-update>
+    <span ng-init="dmc.result = newsShow.result"></span>
+    <form name="userForm" novalidate>
+
+        <!-- Title -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.title.$invalid && !userForm.title.$pristine }">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" ng-model="dmc.result.title" required>
+            <p ng-show="userForm.title.$invalid && !userForm.title.$pristine" class="help-block">Title name is required.</p>
+        </div>
+      
+        <!-- Description -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.description.$invalid && !userForm.description.$pristine }">
+            <label>Description</label>
+            <input type="text" name="description" class="form-control" ng-model="dmc.result.description" ng-minlength="8">
+            <p ng-show="userForm.description.$error.minlength" class="help-block">Description is too short.</p>
+        </div>
+        
+    </form>
+</div>
+</div>

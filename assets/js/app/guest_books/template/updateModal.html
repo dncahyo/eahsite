@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+    <div class="col-sm-10">
+        <!-- FORM ============ -->
+        <guest-books-update control="gbooksUpdate"></guest-books-update>
+        <guest-books-show control="gbooksShow" config="gbooksShowConfig"></guest-books-show>
+        <div ng-init="dmc.result = gbooksShow.result; cb = gbooksUpdate.update_cb(dmc.result)"></div>
+        <form name="userForm" novalidate>
+    
+            <!-- NAME -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" ng-model="dmc.result.name" required>
+                <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">Name is required.</p>
+            </div>
+          
+            <!-- Email -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" ng-model="dmc.result.email" required>
+                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+            </div>
+            
+            <!-- City -->
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" name="city" class="form-control" ng-model="dmc.result.city">
+            </div>
+            
+            <!-- Country -->
+            <div class="form-group">
+                <label>Country</label>
+                <input type="text" name="country" class="form-control" ng-model="dmc.result.country">
+            </div>
+            
+            <!-- Message -->
+            <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" rows="4" class="form-control" ng-model="dmc.result.message" ></textarea>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="onClose('UPDATE', cb)" ng-disabled="userForm.$invalid">UPDATE</button>    
+    <button class="btn btn-warning" type="button" ng-click="onDismiss('CANCEL')">CANCEL</button>
+</div>

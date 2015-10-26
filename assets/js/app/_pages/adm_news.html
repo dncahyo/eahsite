@@ -1,0 +1,66 @@
+
+
+<div class="container" ng-controller="app.html_pages.adm_news.ctrl">
+    <news-index control="newsIdx" config="{call_now:true, pagination: {page:1, count:5} }"></news-index>
+    <news-modal-conf control="nmc"></news-modal-conf>
+    <dialog-wrapper control="newsShowModal" context="nmc.show.context"></dialog-wrapper>
+    <dialog-wrapper 
+        control="newsCreateModal" 
+        config="newsCreateModalConf" 
+        context="nmc.create.context" 
+        base-dialog-conf="nmc.create.baseDialogConf">
+    </dialog-wrapper>
+    <dialog-wrapper 
+        control="newsUpdateModal" 
+        config="newsUpdateModalConf" 
+        context="nmc.update.context">
+    </dialog-wrapper>
+    <dialog-wrapper 
+        control="newsDestroyModal" 
+        config="newsDestroyModalConf" 
+        context="nmc.destroy.context">
+    </dialog-wrapper>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <hr class="featurette-divider">
+            <h2 class="sub-header">News</h2>
+            <button class="btn btn-default" ng-click="newsCreateModal.show()"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> create</button>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>title</th>
+                      <th>description</th>
+                      <th>created_at</th>
+                      <th>action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="news in newsIdx.newses track by $index">
+                       <td>{{news.id}}</td>
+                       <td>{{news.title}}</td>
+                       <td>{{news.description}}</td>
+                       <td>{{news.created_at}}</td>
+                       <td>
+                           <a href="" ng-click="newsShowModal.show_i(news.id)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+                           <a href="" ng-click="newsUpdateModal.show_i(news.id)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                           <a href="" ng-click="newsDestroyModal.show_i(news.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                       </td>
+                     </tr>
+                  </tbody>
+                </table>
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" ng-class="{ 'disabled' : !newsIdx.prev_page_btn }"><a href="" ng-click="newsIdx.prev_page()"><span aria-hidden="true">&larr;</span>Prev</a></li>
+                        <li class="next" ng-class="{ 'disabled' : !newsIdx.next_page_btn }"><a href="" ng-click="newsIdx.next_page()">Next <span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+          
+        
+              
+        </div>  
+    </div>
+</div>

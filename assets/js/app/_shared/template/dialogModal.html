@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+    <span ng-if="content">
+        {{content}}
+    </span>
+    <div ng-if="contentUrl">
+        <div ng-include="contentUrl"></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <span ng-repeat="close_btn in actions.close">
+        <span ng-init="close_btn_text= close_btn.text || close_btn; 
+                       close_btn_func= close_btn.func || close_btn;"></span>
+        <button class="btn btn-primary" type="button" ng-click="onClose(close_btn_text, close_btn_func)">{{close_btn_text}}</button>
+    </span>
+    <span ng-repeat="dismiss_btn in actions.dismiss">
+        <span ng-init="dismiss_btn_text= dismiss_btn.text || dismiss_btn;"></span>
+        <button class="btn btn-warning" type="button" ng-click="onDismiss(dismiss_btn_text)">{{dismiss_btn_text}}</button>
+    </span>
+</div>

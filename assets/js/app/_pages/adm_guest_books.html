@@ -1,0 +1,74 @@
+
+
+<div class="container" ng-controller="app.html_pages.adm_guest_books.ctrl">
+    <gbooks-index control="gbooksIdx" config="{call_now:true, pagination: {page:1, count:5} }"></gbooks-index>
+    <guest-books-modal-conf control="gbmc"></guest-books-modal-conf>
+    <dialog-wrapper 
+        control="gbooksCreateModal" 
+        config="gbooksCreateModalConf" 
+        context="gbmc.create.context" 
+        base-dialog-conf="gbmc.create.baseDialogConf">
+    </dialog-wrapper>
+    <dialog-wrapper 
+        control="gbooksShowModal" 
+        config="gbooksShowModalConf"
+        context="gbmc.show.context">
+    </dialog-wrapper>
+    <dialog-wrapper 
+        control="gbooksUpdateModal" 
+        config="gbooksUpdateModalConf"
+        context="gbmc.update.context"
+        base-dialog-conf="gbmc.update.baseDialogConf">
+    </dialog-wrapper>
+    <dialog-wrapper 
+        control="gbooksDestroyModal" 
+        config="gbooksDestroyModalConf"
+        context="gbmc.destroy.context">
+    </dialog-wrapper>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <hr class="featurette-divider">
+            <h2 class="sub-header">Guest Books</h2>
+            <button class="btn btn-default" ng-click="gbooksCreateModal.show()"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> create</button>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>name</th>
+                      <th>email</th>
+                      <th>city</th>
+                      <th>country</th>
+                      <th>messages</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="el in gbooksIdx.results track by $index">
+                       <td>{{el.id}}</td>
+                       <td>{{el.name}}</td>
+                       <td>{{el.email}}</td>
+                       <td>{{el.city}}</td>
+                       <td>{{el.country}}</td>
+                       <td>{{el.message}}</td>
+                       <td>
+                           <a href="" ng-click="gbooksShowModal.show_i(el.id)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>
+                           <a href="" ng-click="gbooksUpdateModal.show_i(el.id)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                           <a href="" ng-click="gbooksDestroyModal.show_i(el.id)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                       </td>
+                     </tr>
+                  </tbody>
+                </table>
+                <nav>
+                    <ul class="pager">
+                        <li class="previous" ng-class="{ 'disabled' : !gbooksIdx.prev_page_btn }"><a href="" ng-click="gbooksIdx.prev_page()"><span aria-hidden="true">&larr;</span>Prev</a></li>
+                        <li class="next" ng-class="{ 'disabled' : !gbooksIdx.next_page_btn }"><a href="" ng-click="gbooksIdx.next_page()">Next <span aria-hidden="true">&rarr;</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+          
+        
+              
+        </div>  
+    </div>
+</div>

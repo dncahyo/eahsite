@@ -5,10 +5,14 @@
    header('Content-Type: application/json');
    $pdo = Database::connect();
    
+   $table_attrs    = array('name','email','city','country','message');
+   $q_mark = array_fill(0, count($table_attrs), '?');
+   $table_attrs_id = array('name','email','city','country','message','id');
+   
    function index(){
        global $pdo;
        $limit = Helper::get_limit($_REQUEST);
-       $sql = "SELECT * FROM news ORDER BY id DESC LIMIT " . $limit['offset'] . "," . ($limit['count'] + 1);
+       $sql = "SELECT * FROM guest_books ORDER BY id DESC LIMIT " . $limit['offset'] . "," . ($limit['count'] + 1);
        $a=array();
        foreach ($pdo->query($sql) as $row) {
           array_push($a,$row); 
@@ -17,7 +21,7 @@
    }
    
    function show(){
-        $sql = 'SELECT * FROM news WHERE id = ? ORDER BY id DESC';
+        $sql = 'SELECT * FROM guest_books WHERE id = ? ';
         $arr_val = Helper::get_params($_REQUEST, array('id'));
         $q = crud_exec($sql, $arr_val, false);
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -25,24 +29,26 @@
    }
    
    function create(){
-        //todo check user token
-        $sql = "INSERT INTO news (title,description,user_id) values(?, ?, ?)";
-        $arr_val = Helper::get_params($_REQUEST, array('title','description', 'user_id'));
+        //todo check user token"
+        global $table_attrs, $q_mark;
+        $sql = "INSERT INTO guest_books (" . join(',', $table_attrs) . ") values(". join(',', $q_mark) .")";
+        $arr_val = Helper::get_params($_REQUEST, $table_attrs);
         crud_exec($sql, $arr_val);
         echo json_encode(array('message' => 'done'));
    }
    
    function update(){
          //todo check user token
-        $sql = "UPDATE news  set title = ?, description = ? WHERE id = ?";
-        $arr_val = Helper::get_params($_REQUEST, array('title','description', 'id'));
+        global $table_attrs, $table_attrs_id;
+        $sql = "UPDATE guest_books  set ". join(' = ?, ', $table_attrs) . " = ? WHERE id = ?";
+        $arr_val = Helper::get_params($_REQUEST, $table_attrs_id);
         crud_exec($sql, $arr_val);
         echo json_encode(array('message' => 'done'));
    }
    
    function destroy(){
         //todo check user token
-        $sql = "DELETE FROM news  WHERE id = ?";
+        $sql = "DELETE FROM guest_books  WHERE id = ?";
         $arr_val = Helper::get_params($_REQUEST, array('id'));
         crud_exec($sql, $arr_val);
         echo json_encode(array('message' => 'done'));
@@ -65,8 +71,14 @@
   }
   
   //echo $_REQUEST['model_func'];
-   
-  $methods_arr[$_REQUEST['model_func']]();
+  try {
+      $methods_arr[$_REQUEST['model_func']]();
+  } catch (Exception $e) {
+      $res = array('message' => $e->getMessage());
+      http_response_code(401);
+      echo json_encode($res);
+  }
+  
    
    
    Database::disconnect();

@@ -1,0 +1,31 @@
+
+<div class="row">  
+   
+<div class="col-sm-10">
+    <!-- FORM ============ -->
+    <news-show control="newsShow" config="newsShowConfig"></news-show>
+    <form name="userForm" ng-submit="submitForm()" novalidate>
+
+        <!-- Title -->
+        <div class="form-group">
+            <label>Title</label>
+            <p>{{newsShow.result.title}}</p>
+        </div>
+        
+        <!-- Description -->
+        <div class="form-group">
+            <label>Description</label>
+            <p>{{newsShow.result.description}}</p>
+        </div>
+        
+        <!-- Created at -->
+        <div class="form-group">
+            <label>Created at</label>
+            <p>{{newsShow.result.created_at}}</p>
+        </div>
+        
+    </form>
+  </div>
+  
+</div>
+
