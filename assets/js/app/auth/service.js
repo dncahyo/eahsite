@@ -14,7 +14,7 @@ function ($http, $q, appConfig) {
 
     service.sign_in = sign_in;
     service.sign_out = sign_out;
-    service,signed_in_check = signed_in_check;
+    service.signed_in_check = signed_in_check;
     return service;
 
     function sign_in (opt) {

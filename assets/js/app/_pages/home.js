@@ -9,9 +9,11 @@ function (sc) {
     sc.submit_err = submit_err;
     sc.guestBooksCreate = {};
     sc.newsIdx = {};
+    sc.gbooksIdx = {};
     
     function submit_success(data){
         alert("done");
+        sc.gbooksIdx.reload();
     }
     
     function submit_err(data){

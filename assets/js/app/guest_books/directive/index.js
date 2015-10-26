@@ -39,13 +39,17 @@ angular.module('app.guest_books')
         }
         
         function next_page(){
-            sc.pe.pagination.page++;
-            reload();
+            if (sc.pe.next_page_btn){
+                sc.pe.pagination.page++;
+                reload();
+            }
         }
         
         function prev_page(){
-            sc.pe.pagination.page--;
-            reload();
+            if (sc.pe.pagination.page > 1){
+                sc.pe.pagination.page--;
+                reload();
+            }
         }
     }
   };

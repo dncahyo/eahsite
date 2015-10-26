@@ -1,5 +1,6 @@
 <div ng-controller="app.html_pages.home.ctrl">
     <guest-books-create control="guestBooksCreate"></guest-books-create>
+    <gbooks-index control="gbooksIdx" config="{call_now:true, pagination: {page:1, count:8} }"></gbooks-index>
     <news-index control="newsIdx"></news-index>
  <!-- Carousel
     ================================================== -->
@@ -107,46 +108,53 @@
       <div class="row">  
     <hr class="featurette-divider"> 
     <div class="col-sm-6">
-    <!-- FORM ============ -->
-    <h2 id="guest_book">Guest Book</h2>
-    <form name="userForm" novalidate>
-
-        <!-- NAME -->
-        <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-            <label>Name</label>
-            <input type="text" name="name" class="form-control" ng-model="user.name" required>
-            <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">You name is required.</p>
+        <!-- FORM ============ -->
+        <h2 id="guest_book">Guest Book</h2>
+        <form name="userForm" novalidate>
+    
+            <!-- NAME -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" ng-model="user.name" required>
+                <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">You name is required.</p>
+            </div>
+            
+            <!-- EMAIL -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" ng-model="user.email">
+                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+            </div>
+            
+            <!-- City -->
+            <div class="form-group">
+                <label>City</label>
+                <input type="text" name="city" class="form-control" ng-model="user.city">
+            </div>
+            
+            <!-- Country -->
+            <div class="form-group">
+                <label>Country</label>
+                <input type="text" name="country" class="form-control" ng-model="user.country">
+            </div>
+            
+            <!-- Message -->
+            <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" rows="4" class="form-control" ng-model="user.message" ></textarea>
+            </div>
+            
+            
+            <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="guestBooksCreate.create(user,submit_success,submit_err)">Submit</button>
+            
+        </form>
+    </div>
+    <div class="col-sm-6">
+        <h2 id="guest_book">Recent Guest Book</h2>
+        <div ng-repeat="el in gbooksIdx.results track by $index">
+            <b>{{el.name}}</b> <span class="text-muted">{{el.email}}</span>
+            <p>{{el.message}}</p>
         </div>
-        
-        <!-- EMAIL -->
-        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" ng-model="user.email">
-            <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
-        </div>
-        
-        <!-- City -->
-        <div class="form-group">
-            <label>City</label>
-            <input type="text" name="city" class="form-control" ng-model="user.city">
-        </div>
-        
-        <!-- Country -->
-        <div class="form-group">
-            <label>Country</label>
-            <input type="text" name="country" class="form-control" ng-model="user.country">
-        </div>
-        
-        <!-- Message -->
-        <div class="form-group">
-            <label>Message</label>
-            <textarea name="message" rows="4" class="form-control" ng-model="user.message" ></textarea>
-        </div>
-        
-        
-        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid" ng-click="guestBooksCreate.create(user,submit_success,submit_err)">Submit</button>
-        
-    </form>
     </div>
   
     </div>

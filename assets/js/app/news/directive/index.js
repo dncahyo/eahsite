@@ -39,13 +39,17 @@ angular.module('app.news')
         }
         
         function next_page(){
-            sc.pe.pagination.page++;
-            init();
+            if (sc.pe.next_page_btn){
+                sc.pe.pagination.page++;
+                init();
+            }
         }
         
         function prev_page(){
-            sc.pe.pagination.page--;
-            init();
+            if (sc.pe.pagination.page > 1){
+                sc.pe.pagination.page--;
+                init();
+            }
         }
     }
   };
